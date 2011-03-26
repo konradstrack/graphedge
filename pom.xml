@@ -1,6 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>graphedge</groupId>
-  <artifactId>graphedge</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>graphedge</groupId>
+	<artifactId>graphedge</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+  
+  	<repositories>
+		<repository>
+			<id>tanesha</id>
+			<url>http://tanesha.net/maven2/</url>
+		</repository>
+	</repositories>
+  	<dependencies>
+  		<dependency>
+  			<groupId>jgrapht</groupId>
+  			<artifactId>jgrapht</artifactId>
+  			<version>0.8.2</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.google.inject</groupId>
+  			<artifactId>guice</artifactId>
+  			<version>3.0</version>
+  		</dependency>
+  	</dependencies>
 </project>
