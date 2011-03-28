@@ -1,14 +1,13 @@
 package pl.strack.graphedge.core;
 
-import org.jgrapht.EdgeFactory;
-import org.jgrapht.graph.AbstractBaseGraph;
+import org.jgrapht.graph.SimpleGraph;
 
-public class Graph extends AbstractBaseGraph<String, Edge> {
+public class Graph extends SimpleGraph<Integer, Edge> {
+
+	public Graph(Class<? extends Edge> edgeClass) {
+		super(edgeClass);
+	}
 
 	private static final long serialVersionUID = 5760792906022005614L;
-
-	public Graph(EdgeFactory<String, Edge> ef, boolean allowMultipleEdges, boolean allowLoops) {
-		super(ef, allowMultipleEdges, allowLoops);
-	}
 
 }
