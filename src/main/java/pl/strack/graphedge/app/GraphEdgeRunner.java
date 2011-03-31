@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import pl.strack.graphedge.builder.FileGraphBuilder;
 import pl.strack.graphedge.core.Graph;
 import pl.strack.graphedge.visualizer.JGraphVisualizer;
@@ -13,6 +16,8 @@ import pl.strack.graphedge.visualizer.JGraphVisualizer;
 import com.google.inject.Inject;
 
 public class GraphEdgeRunner {
+	
+	private static Logger log = LoggerFactory.getLogger(GraphEdgeRunner.class); 
 
 	private final FileGraphBuilder builder;
 	private final JGraphVisualizer visualizer;
@@ -28,8 +33,9 @@ public class GraphEdgeRunner {
 		Graph graph = null;
 		try {
 			graph = builder.build("src/main/resources/graphs/simple2.g");
+			log.debug("Opening graph file.");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 
 		display(visualizer.createVisualization(graph));
