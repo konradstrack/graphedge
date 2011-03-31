@@ -18,7 +18,7 @@ public class GraphEdgeRunner {
 
 	public void run() {
 		try {
-			Graph graph = builder.build("src/main/resources/graphs/simple1.g");
+			Graph graph = builder.build("src/main/resources/graphs/simple2.g");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -4,22 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import org.jgrapht.ext.IntegerNameProvider;
-
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
-import com.google.inject.Inject;
-
 
 public class FileGraphBuilder {
-	
-	private final IntegerNameProvider<Integer> nameProvider;
-	
-	@Inject
-	public FileGraphBuilder(IntegerNameProvider<Integer> nameProvider) {
-		this.nameProvider = nameProvider;
-	}
 	
 	public Graph build(String filename) throws FileNotFoundException {
 		Graph graph = new Graph(Edge.class);
