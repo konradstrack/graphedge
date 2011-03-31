@@ -1,21 +1,83 @@
 package pl.strack.graphedge.visualizer;
 
+import java.awt.geom.Rectangle2D;
+
 import javax.swing.JComponent;
 
 import org.jgraph.JGraph;
+import org.jgraph.graph.CellView;
+import org.jgraph.graph.DefaultEdge;
+import org.jgraph.graph.EdgeView;
+import org.jgraph.graph.GraphLayoutCache;
+import org.jgraph.graph.VertexView;
 import org.jgrapht.ext.JGraphModelAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
+import com.jgraph.layout.JGraphFacade;
+import com.jgraph.layout.JGraphLayout;
+import com.jgraph.layout.graph.JGraphSimpleLayout;
+
 public class JGraphVisualizer {
 
-	public JComponent createVisualization(Graph graph) {
-		JGraphModelAdapter<Integer, Edge> modelAdapter = new JGraphModelAdapter<Integer, Edge>(
-				graph);
-		JGraph jgraph = new JGraph(modelAdapter);
+	private static Logger log = LoggerFactory.getLogger(JGraphVisualizer.class);
 
+	private JGraphModelAdapter<Integer, Edge> modelAdapter;
+
+	public JComponent createVisualization(Graph graph) {
+
+		log.debug("Creating JGraph visualization");
+
+		modelAdapter = new JGraphModelAdapter<Integer, Edge>(graph);
+		JGraph jgraph = new JGraph(modelAdapter);
+		JGraphFacade facade = new JGraphFacade(jgraph);
+		JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE, 800, 600);
+		layout.run(facade);
+
+		setEdgeLabels(jgraph);
+		setVertexPositions(jgraph);
+		
 		return jgraph;
 	}
 
+	private void setVertexPositions(JGraph jgraph) {
+
+		GraphLayoutCache cache = jgraph.getGraphLayoutCache();
+		CellView[] cells = cache.getAllViews();
+
+		final int x = 400, y = 80, r = 200;
+		int i = 0;
+
+		for (CellView cell : cells) {
+			if (cell instanceof VertexView) {
+				Rectangle2D rectangle = cell.getBounds();
+				int xi = (int) (x + r * Math.sin(i * Math.PI / 3));
+				int yi = (int) (y + r
+						* (1 - Math.cos(i * Math.PI / 3)));
+				
+				log.debug("Vertex position: {}, {}", xi, yi);
+				rectangle.setRect(xi, yi, 20, 20);
+				
+				++i;
+			}
+		}
+	}
+
+	private void setEdgeLabels(JGraph jgraph) {
+		log.debug("Setting edge labels");
+
+		GraphLayoutCache cache = jgraph.getGraphLayoutCache();
+		CellView[] cells = cache.getAllViews();
+
+		for (CellView cell : cells) {
+			if (cell instanceof EdgeView) {
+				EdgeView edgeView = (EdgeView) cell;
+				DefaultEdge defaultEdge = (DefaultEdge) edgeView.getCell();
+				defaultEdge.setUserObject("");
+			}
+		}
+	}
 }
