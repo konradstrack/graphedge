@@ -28,4 +28,11 @@ public class GraphClassifierTest {
 		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
 	}
 	
+	@Test
+	public void testBipartite() throws FileNotFoundException {
+		Graph graph = builder.build("src/test/resources/graphs/bipartite1.g");
+		
+		assertEquals(GraphType.BIPARTITE, classifier.determineGraphType(graph));
+	}
+	
 }
