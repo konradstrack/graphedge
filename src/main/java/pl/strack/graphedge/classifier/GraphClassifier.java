@@ -86,7 +86,11 @@ public class GraphClassifier {
 	}
 
 	public GraphType determineGraphType(Graph graph) {
-		return GraphType.SIMPLE; // TODO: real classification
+		if (isBipartite(graph)) {
+			return GraphType.BIPARTITE;
+		} else {
+			return GraphType.SIMPLE;
+		}
 	}
 
 }
