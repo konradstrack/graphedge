@@ -35,4 +35,25 @@ public class GraphClassifierTest {
 		assertEquals(GraphType.BIPARTITE, classifier.determineGraphType(graph));
 	}
 	
+	@Test
+	public void testTree1() throws FileNotFoundException {
+		Graph graph = builder.build("src/test/resources/graphs/tree1.g");
+		
+		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
+	}
+	
+	@Test
+	public void testTree2() throws FileNotFoundException {
+		Graph graph = builder.build("src/test/resources/graphs/tree2.g");
+		
+		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
+	}
+	
+	@Test
+	public void testDisconnectedTree() throws FileNotFoundException {
+		Graph graph = builder.build("src/test/resources/graphs/disconnected_tree.g");
+		
+		assertEquals(GraphType.BIPARTITE, classifier.determineGraphType(graph));
+	}
+	
 }

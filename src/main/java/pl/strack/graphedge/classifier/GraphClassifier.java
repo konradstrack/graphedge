@@ -84,13 +84,74 @@ public class GraphClassifier {
 
 		return true;
 	}
+	
+	private boolean isTree(Integer vertex, VertexStateMark[] vertexState, Graph graph) {
+		
+		int computedVertices = 0;
+		vertexState[vertex.intValue() - 1] = VertexStateMark.GREY;
+		
+		Set<Edge> edges = graph.edgesOf(vertex);
+		Integer nextVertex;
+		for (Edge e : edges) {
+
+			if (graph.getEdgeSource(e) == vertex)
+				nextVertex = graph.getEdgeTarget(e);
+			else
+				nextVertex = graph.getEdgeSource(e);
+
+			// check if the vertex was computed
+			if (vertexState[nextVertex.intValue() - 1] == VertexStateMark.WHITE) {
+				if(! isTree(nextVertex, vertexState, graph) )
+					return false;
+			} else {
+				++computedVertices;
+				if(computedVertices == 2)
+					return false;
+			}
+
+		}
+		
+		vertexState[vertex.intValue() - 1] = VertexStateMark.BLACK;
+		return true;
+		
+	}
+
+	private boolean isTree(Graph graph) {
+
+		int verticesNumber = graph.vertexSet().size();
+		VertexStateMark[] vertexState = new VertexStateMark[verticesNumber];
+
+		// set initial state of each vertex in the graph
+		for (int i = 0; i < verticesNumber; ++i) {
+			vertexState[i] = VertexStateMark.WHITE;
+		}
+
+		Integer vertex = graph.vertexSet().iterator().next();
+		if(isTree(vertex, vertexState, graph)) {
+			
+			Set<Integer> vertices = graph.vertexSet();
+			for(Integer v : vertices) {
+				if(vertexState[v.intValue() - 1] == VertexStateMark.WHITE)
+					return false;
+			}
+			
+			return true;
+			
+		} else
+			return false;
+		
+	}
 
 	public GraphType determineGraphType(Graph graph) {
-		if (isBipartite(graph)) {
+		
+		if (isTree(graph)) {
+			return GraphType.TREE;
+		} else if(isBipartite(graph)) {
 			return GraphType.BIPARTITE;
 		} else {
 			return GraphType.SIMPLE;
 		}
+		
 	}
 
 }
