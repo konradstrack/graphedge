@@ -32,13 +32,13 @@ public class GraphEdgePainter {
 		return vertex;
 	}
 
-	private int paintSimpleGraph(Graph graph) {
+	/*private int paintSimpleGraph(Graph graph) {
 
 	}
 
 	private int paintBipartiteGraph(Graph graph) {
 
-	}
+	}*/
 
 	private void paintTree(Graph graph, Integer vertex, VertexStateMark[] vertexState, int parentEdgeColor) {
 
