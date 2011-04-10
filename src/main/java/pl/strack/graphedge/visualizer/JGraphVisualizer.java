@@ -1,5 +1,6 @@
 package pl.strack.graphedge.visualizer;
 
+import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JComponent;
@@ -17,29 +18,30 @@ import org.slf4j.LoggerFactory;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
-import com.jgraph.layout.JGraphFacade;
-import com.jgraph.layout.JGraphLayout;
-import com.jgraph.layout.graph.JGraphSimpleLayout;
-
 public class JGraphVisualizer {
 
 	private static Logger log = LoggerFactory.getLogger(JGraphVisualizer.class);
 
 	private JGraphModelAdapter<Integer, Edge> modelAdapter;
 
-	public JComponent createVisualization(Graph graph) {
+	private Dimension size;
+	private Graph graph;
+
+	public JGraphVisualizer(Graph graph, Dimension size) {
+		this.graph = graph;
+		this.size = size;
+	}
+
+	public JComponent createVisualization() {
 
 		log.debug("Creating JGraph visualization");
 
 		modelAdapter = new JGraphModelAdapter<Integer, Edge>(graph);
 		JGraph jgraph = new JGraph(modelAdapter);
-		JGraphFacade facade = new JGraphFacade(jgraph);
-		JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE, 800, 600);
-		layout.run(facade);
 
 		setEdgeLabels(jgraph);
 		setVertexPositions(jgraph);
-		
+
 		return jgraph;
 	}
 
@@ -48,19 +50,20 @@ public class JGraphVisualizer {
 		GraphLayoutCache cache = jgraph.getGraphLayoutCache();
 		CellView[] cells = cache.getAllViews();
 
-		final int x = 400, y = 80, r = 200;
+		final int x = size.width / 2;
+		final int y = 80;
+		final int r = (size.height - 200) / 2;
 		int i = 0;
 
 		for (CellView cell : cells) {
 			if (cell instanceof VertexView) {
 				Rectangle2D rectangle = cell.getBounds();
 				int xi = (int) (x + r * Math.sin(i * Math.PI / 3));
-				int yi = (int) (y + r
-						* (1 - Math.cos(i * Math.PI / 3)));
-				
+				int yi = (int) (y + r * (1 - Math.cos(i * Math.PI / 3)));
+
 				log.debug("Vertex position: {}, {}", xi, yi);
 				rectangle.setRect(xi, yi, 20, 20);
-				
+
 				++i;
 			}
 		}

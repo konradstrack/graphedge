@@ -1,6 +1,10 @@
 package pl.strack.graphedge.app;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 
 import javax.swing.JComponent;
@@ -20,12 +24,10 @@ public class GraphEdgeRunner {
 	private static Logger log = LoggerFactory.getLogger(GraphEdgeRunner.class); 
 
 	private final FileGraphBuilder builder;
-	private final JGraphVisualizer visualizer;
 
 	@Inject
-	public GraphEdgeRunner(FileGraphBuilder builder, JGraphVisualizer visualizer) {
+	public GraphEdgeRunner(FileGraphBuilder builder) {
 		this.builder = builder;
-		this.visualizer = visualizer;
 	}
 
 	public void run() {
@@ -38,17 +40,25 @@ public class GraphEdgeRunner {
 			log.error(e.getMessage());
 		}
 
-		display(visualizer.createVisualization(graph));
+		display(graph);
 	}
 
-	private void display(JComponent graph) {
+	private void display(Graph graph) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JFrame frame = new JFrame("GraphEdge");
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(800, 600));
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setPreferredSize(screenSize);
+		frame.setExtendedState(Frame.MAXIMIZED_BOTH);  
 
-		frame.getContentPane().add(graph);
+		Container contentPane = frame.getContentPane();
+		
+		contentPane.setLayout(new BorderLayout());
+		
+		JGraphVisualizer visualizer = new JGraphVisualizer(graph, screenSize);
+		JComponent jgraph = visualizer.createVisualization();
+		contentPane.add(jgraph, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setVisible(true);
