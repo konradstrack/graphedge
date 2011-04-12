@@ -12,6 +12,7 @@ import pl.strack.graphedge.builder.FileGraphBuilder;
 import pl.strack.graphedge.classifier.GraphClassifier;
 import pl.strack.graphedge.classifier.GraphType;
 import pl.strack.graphedge.core.Graph;
+import pl.strack.graphedge.painter.exceptions.GraphColoringNotFoundException;
 
 public class GraphEdgePainterTest {
 
@@ -27,7 +28,7 @@ public class GraphEdgePainterTest {
 	}
 
 	@Test
-	public void paintTreeTest() throws FileNotFoundException {
+	public void paintTreeTest() throws FileNotFoundException, GraphColoringNotFoundException {
 		Graph graph = builder.build("src/test/resources/graphs/tree3.g");
 
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
