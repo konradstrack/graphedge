@@ -1,6 +1,7 @@
 package pl.strack.graphedge.painter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 
@@ -31,7 +32,7 @@ public class GraphEdgePainterTest {
 
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
 		assertEquals(3, painter.paintGraph(graph));
-		assertEquals(true, painter.checkColoring(graph));
+		assertTrue(painter.checkColoring(graph));
 		
 	}
 }
