@@ -23,7 +23,7 @@ public class GraphEdgePainterTest {
 	public void setup() {
 		builder = new FileGraphBuilder();
 		classifier = new GraphClassifier();
-		painter = new GraphEdgePainter();
+		painter = new GraphEdgePainter(classifier);
 	}
 
 	@Test
