@@ -54,12 +54,15 @@ public class JGraphVisualizer {
 		final int y = 80;
 		final int r = (size.height - 200) / 2;
 		int i = 0;
+		
+		int vertices = graph.vertexSet().size();
 
 		for (CellView cell : cells) {
 			if (cell instanceof VertexView) {
 				Rectangle2D rectangle = cell.getBounds();
-				int xi = (int) (x + r * Math.sin(i * Math.PI / 3));
-				int yi = (int) (y + r * (1 - Math.cos(i * Math.PI / 3)));
+				double angle = 2 * i * Math.PI / vertices; 
+				int xi = (int) (x + r * Math.sin(angle));
+				int yi = (int) (y + r * (1 - Math.cos(angle)));
 
 				log.debug("Vertex position: {}, {}", xi, yi);
 				rectangle.setRect(xi, yi, 20, 20);
