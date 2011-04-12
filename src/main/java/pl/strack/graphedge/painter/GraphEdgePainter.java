@@ -7,16 +7,19 @@ import pl.strack.graphedge.classifier.GraphType;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
+import com.google.inject.Inject;
+
 public class GraphEdgePainter {
 
-	private GraphClassifier classifier;
+	private final GraphClassifier classifier;
 
 	private enum VertexStateMark {
 		WHITE, GREY, BLACK
 	}
 
-	public GraphEdgePainter() {
-		classifier = new GraphClassifier();
+	@Inject
+	public GraphEdgePainter(GraphClassifier classifier) {
+		this.classifier = classifier;
 	}
 
 	private Integer getMaxDegreeVertex(Graph graph) {

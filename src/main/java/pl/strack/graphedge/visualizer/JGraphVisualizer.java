@@ -24,8 +24,8 @@ public class JGraphVisualizer {
 
 	private JGraphModelAdapter<Integer, Edge> modelAdapter;
 
-	private Dimension size;
-	private Graph graph;
+	private final Dimension size;
+	private final Graph graph;
 
 	public JGraphVisualizer(Graph graph, Dimension size) {
 		this.graph = graph;
