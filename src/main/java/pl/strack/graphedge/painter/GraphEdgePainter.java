@@ -63,7 +63,7 @@ public class GraphEdgePainter {
 		
 	}
 
-	private int paintSimpleGraph(Graph graph) {
+	private int paintSimpleGraph(Graph graph) throws GraphColoringNotFoundException {
 
 		Iterator<Edge> edgesIt = graph.edgeSet().iterator();
 		int maxVertexDegree = getMaxDegreeVertex(graph);
@@ -134,7 +134,7 @@ public class GraphEdgePainter {
 
 	}
 
-	public int paintGraph(Graph graph) {
+	public int paintGraph(Graph graph) throws GraphColoringNotFoundException {
 		int colors;
 		GraphType type = classifier.determineGraphType(graph);
 
