@@ -32,62 +32,65 @@ public class GraphEdgePainter {
 		return vertex;
 	}
 
-	/*private int paintSimpleGraph(Graph graph) {
-
+	private int paintSimpleGraph(Graph graph) {
+		//TODO: implement
+		return 0;
 	}
 
 	private int paintBipartiteGraph(Graph graph) {
+		//TODO: implement
+		return 0;
+	}
 
-	}*/
+	private void paintTree(Graph graph, Integer vertex, VertexStateMark[] vertexState,
+			int parentEdgeColor) {
 
-	private void paintTree(Graph graph, Integer vertex, VertexStateMark[] vertexState, int parentEdgeColor) {
+		vertexState[vertex.intValue() - 1] = VertexStateMark.GREY;
 
-		vertexState[vertex.intValue() -1] = VertexStateMark.GREY;
-		
 		Set<Edge> edges = graph.edgesOf(vertex);
 		Integer nextVertex;
 		int lastColor = 1;
 		for (Edge e : edges) {
-			
+
 			if (graph.getEdgeSource(e) == vertex) {
 				nextVertex = graph.getEdgeTarget(e);
 			} else {
 				nextVertex = graph.getEdgeSource(e);
 			}
 
-			if(vertexState[nextVertex.intValue() - 1] == VertexStateMark.WHITE) {
-				
-				if(lastColor == parentEdgeColor) {
+			if (vertexState[nextVertex.intValue() - 1] == VertexStateMark.WHITE) {
+
+				if (lastColor == parentEdgeColor) {
 					e.setColor(++lastColor);
 				} else {
 					e.setColor(lastColor);
 				}
-				
+
 				paintTree(graph, nextVertex, vertexState, lastColor);
 				++lastColor;
-		
+
 			}
-					
+
 		}
-		
+
 		vertexState[vertex.intValue() - 1] = VertexStateMark.BLACK;
 
 	}
 
 	private int paintTree(Graph graph) {
-		
+
 		int verticesNumber = graph.vertexSet().size();
 		VertexStateMark[] vertexState = new VertexStateMark[verticesNumber];
-		for(int i = 0; i < verticesNumber; ++i) {
+		for (int i = 0; i < verticesNumber; ++i) {
 			vertexState[i] = VertexStateMark.WHITE;
 		}
-		
+
 		Integer vertex = graph.vertexSet().iterator().next();
 		paintTree(graph, vertex, vertexState, 0);
-		
-		//tree is a bipartite graph, so: chromatic index == max vertex degree
+
+		// tree is a bipartite graph, so: chromatic index == max vertex degree
 		return getMaxDegreeVertex(graph);
-		
+
 	}
 
 	public int paintGraph(Graph graph) {
