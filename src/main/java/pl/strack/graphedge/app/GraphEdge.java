@@ -3,7 +3,7 @@ package pl.strack.graphedge.app;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class GraphEdge {
+public final class GraphEdge {
 
 	private GraphEdge() {
 	}
