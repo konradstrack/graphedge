@@ -27,7 +27,6 @@ public class GraphEdgePainter {
 		Set<Integer> vertices = graph.vertexSet();
 		Integer vertex = vertices.iterator().next();
 		for (Integer v : vertices) {
-			System.out.println(graph.degreeOf(v) + "\n");
 			if(graph.degreeOf(v) > graph.degreeOf(vertex)) {
 				vertex = v;
 			}
@@ -116,26 +115,24 @@ public class GraphEdgePainter {
 	
 	public boolean checkColoring(Graph graph) {
 		
-		Set<Edge> edges = graph.edgeSet();
-		Integer sourceVertex;
-		Integer destVertex;
-		int color;
-		for(Edge e : edges) {
+		boolean[] isColorUsed = new boolean[graph.degreeOf( getMaxDegreeVertex(graph) ) + 1];
+				
+		for(Integer v : graph.vertexSet()) {
 			
-			color = e.getColor();
-			sourceVertex = graph.getEdgeSource(e);
-			destVertex = graph.getEdgeTarget(e);
+			for(int i = 0; i < isColorUsed.length; ++i) {
+				isColorUsed[i] = false;
+			}
+
+			for(Edge e : graph.edgesOf(v)) {
+				
+				if( isColorUsed[e.getColor() - 1] ) {
+					return false;
+				} else {
+					isColorUsed[e.getColor() - 1] = true;
+				}
+				
+			}
 			
-			for(Edge se : graph.edgesOf(sourceVertex)) {
-				if(se.getColor() == color) {
-					return false;
-				}
-			}
-			for(Edge de : graph.edgesOf(destVertex)) {
-				if(de.getColor() == color){
-					return false;
-				}
-			}
 		}
 		
 		return true;
