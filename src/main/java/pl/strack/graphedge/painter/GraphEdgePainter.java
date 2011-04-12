@@ -24,7 +24,8 @@ public class GraphEdgePainter {
 		Set<Integer> vertices = graph.vertexSet();
 		Integer vertex = vertices.iterator().next();
 		for (Integer v : vertices) {
-			if (graph.edgesOf(v).size() > graph.edgesOf(vertex).size()) {
+			System.out.println(graph.degreeOf(v) + "\n");
+			if(graph.degreeOf(v) > graph.degreeOf(vertex)) {
 				vertex = v;
 			}
 		}
@@ -32,13 +33,13 @@ public class GraphEdgePainter {
 		return vertex;
 	}
 
-	/*private int paintSimpleGraph(Graph graph) {
-
+	private int paintSimpleGraph(Graph graph) {
+		return 0;
 	}
 
 	private int paintBipartiteGraph(Graph graph) {
-
-	}*/
+		return 0;
+	}
 
 	private void paintTree(Graph graph, Integer vertex, VertexStateMark[] vertexState, int parentEdgeColor) {
 
@@ -86,7 +87,7 @@ public class GraphEdgePainter {
 		paintTree(graph, vertex, vertexState, 0);
 		
 		//tree is a bipartite graph, so: chromatic index == max vertex degree
-		return getMaxDegreeVertex(graph);
+		return graph.degreeOf( getMaxDegreeVertex(graph) );
 		
 	}
 
@@ -108,6 +109,33 @@ public class GraphEdgePainter {
 		}
 
 		return colors;
+	}
+	
+	public boolean checkColoring(Graph graph) {
+		
+		Set<Edge> edges = graph.edgeSet();
+		Integer sourceVertex;
+		Integer destVertex;
+		int color;
+		for(Edge e : edges) {
+			
+			color = e.getColor();
+			sourceVertex = graph.getEdgeSource(e);
+			destVertex = graph.getEdgeTarget(e);
+			
+			for(Edge se : graph.edgesOf(sourceVertex)) {
+				if(se.getColor() == color) {
+					return false;
+				}
+			}
+			for(Edge de : graph.edgesOf(destVertex)) {
+				if(de.getColor() == color){
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 
 }
