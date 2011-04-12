@@ -28,12 +28,32 @@ public class GraphEdgePainterTest {
 	}
 
 	@Test
-	public void paintTreeTest() throws FileNotFoundException, GraphColoringNotFoundException {
+	public void paintTreeTest() throws FileNotFoundException,
+			GraphColoringNotFoundException {
 		Graph graph = builder.build("src/test/resources/graphs/tree3.g");
 
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
 		assertEquals(3, painter.paintGraph(graph));
 		assertTrue(painter.checkColoring(graph));
-		
+
+	}
+
+	@Test
+	public void paintSimpleTest1() throws FileNotFoundException,
+			GraphColoringNotFoundException {
+		Graph graph = builder.build("src/test/resources/graphs/simple3.g");
+
+		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
+		assertEquals(3, painter.paintGraph(graph));
+		assertTrue(painter.checkColoring(graph));
+	}
+
+	@Test
+	public void paintSimpleTest2() throws FileNotFoundException, GraphColoringNotFoundException {
+		Graph graph = builder.build("src/test/resources/graphs/simple4.g");
+
+		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
+		assertEquals(5, painter.paintGraph(graph));
+		assertTrue(painter.checkColoring(graph));
 	}
 }

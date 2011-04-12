@@ -1,6 +1,7 @@
 package pl.strack.graphedge.painter;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import pl.strack.graphedge.classifier.GraphClassifier;
@@ -37,9 +38,9 @@ public class GraphEdgePainter {
 		return vertex;
 	}
 
-	private boolean paintSimpleGraph(Graph graph, Iterator<Edge> edgesIt, int maxVertexDegree) {
+	private boolean paintSimpleGraph(Graph graph, List<Edge> edges, int maxVertexDegree, int index) {
 		
-		if(! edgesIt.hasNext()) {
+		if(edges.size() == index) {
 			
 			if(checkColoring(graph)) {
 				return true;
@@ -49,11 +50,11 @@ public class GraphEdgePainter {
 			
 		}
 		
-		Edge edge = edgesIt.next();
+		Edge edge = edges.get(index);
 		for(int col = 1; col <= maxVertexDegree; ++col) {
 			
 			edge.setColor(col); 
-			if( paintSimpleGraph(graph, edgesIt, maxVertexDegree) ) {
+			if( paintSimpleGraph(graph, edges, maxVertexDegree, index + 1) ) {
 				return true;
 			}
 			
@@ -65,13 +66,14 @@ public class GraphEdgePainter {
 
 	private int paintSimpleGraph(Graph graph) throws GraphColoringNotFoundException {
 
-		Iterator<Edge> edgesIt = graph.edgeSet().iterator();
-		int maxVertexDegree = getMaxDegreeVertex(graph);
-
-		if (paintSimpleGraph(graph, edgesIt, maxVertexDegree)) {
+		List<Edge> edges = new ArrayList<Edge>(graph.edgeSet());
+		int maxVertexDegree = graph.degreeOf( getMaxDegreeVertex(graph) );
+		int initialIndex = 0;
+		
+		if (paintSimpleGraph(graph, edges, maxVertexDegree, initialIndex)) {
 			return maxVertexDegree;
 		}
-		if (paintSimpleGraph(graph, edgesIt, maxVertexDegree + 1)) {
+		if (paintSimpleGraph(graph, edges, maxVertexDegree + 1, initialIndex)) {
 			return maxVertexDegree + 1;
 		}
 
