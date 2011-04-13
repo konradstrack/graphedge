@@ -4,18 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pl.strack.graphedge.builder.FileGraphBuilder;
 import pl.strack.graphedge.builder.RandomGraphBuilder;
 import pl.strack.graphedge.core.Graph;
 
@@ -54,12 +57,20 @@ public class GraphEdgeRunner {
 
 		contentPane.setLayout(new BorderLayout());
 
-		JButton randomButton = new JButton("Random graph");
-		randomButton.addActionListener(new RandomButtonListener());
-
 		graphPanel = new JPanel();
 		contentPane.add(graphPanel, BorderLayout.CENTER);
-		contentPane.add(randomButton, BorderLayout.SOUTH);
+
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		JButton randomButton = new JButton("Random graph");
+		randomButton.addActionListener(new RandomButtonListener());
+		buttonPanel.add(randomButton);
+
+		JButton openFileButton = new JButton("Open file");
+		openFileButton.addActionListener(new OpenFileButtonListener());
+		buttonPanel.add(openFileButton);
+
+		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 
 		frame.pack();
 		frame.setVisible(true);
@@ -69,10 +80,26 @@ public class GraphEdgeRunner {
 	private class RandomButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			GraphEvaluator evaluator = new GraphEvaluator(new RandomGraphBuilder(20, 80), screenSize, graphPanel);
+			GraphEvaluator evaluator = new GraphEvaluator(new RandomGraphBuilder(20, 80),
+					graphPanel);
 			evaluator.execute();
 		}
 
+	}
+
+	private class OpenFileButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser fileChooser = new JFileChooser();
+			int returnValue = fileChooser.showOpenDialog(null);
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				log.debug("Selected file: {}", fileChooser.getSelectedFile().getPath());
+				GraphEvaluator evaluator = new GraphEvaluator(new FileGraphBuilder(fileChooser
+						.getSelectedFile().getPath()), graphPanel);
+				evaluator.execute();
+			}
+		}
 	}
 
 }

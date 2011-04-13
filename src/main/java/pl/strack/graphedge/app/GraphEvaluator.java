@@ -1,7 +1,6 @@
 package pl.strack.graphedge.app;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingWorker;
@@ -15,16 +14,14 @@ import pl.strack.graphedge.core.Graph;
 import pl.strack.graphedge.visualizer.JGraphVisualizer;
 
 public class GraphEvaluator extends SwingWorker<JGraph, Object> {
-	
+
 	private static Logger log = LoggerFactory.getLogger(GraphEvaluator.class);
 
 	private final GraphBuilder builder;
-	private final Dimension size;
 	private final Container container;
 
-	public GraphEvaluator(GraphBuilder builder, Dimension size, Container container) {
+	public GraphEvaluator(GraphBuilder builder, Container container) {
 		this.builder = builder;
-		this.size = size;
 		this.container = container;
 	}
 
@@ -54,7 +51,7 @@ public class GraphEvaluator extends SwingWorker<JGraph, Object> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		container.repaint();
 		container.validate();
 	}

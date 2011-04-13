@@ -39,37 +39,37 @@ public class GraphEdgePainter {
 	}
 
 	private boolean paintSimpleGraph(Graph graph, List<Edge> edges, int maxVertexDegree, int index) {
-		
-		if(edges.size() == index) {
-			
-			if(checkColoring(graph)) {
+
+		if (edges.size() == index) {
+
+			if (checkColoring(graph)) {
 				return true;
 			} else {
 				return false;
 			}
-			
+
 		}
-		
+
 		Edge edge = edges.get(index);
-		for(int col = 1; col <= maxVertexDegree; ++col) {
-			
-			edge.setColor(col); 
-			if( paintSimpleGraph(graph, edges, maxVertexDegree, index + 1) ) {
+		for (int col = 1; col <= maxVertexDegree; ++col) {
+
+			edge.setColor(col);
+			if (paintSimpleGraph(graph, edges, maxVertexDegree, index + 1)) {
 				return true;
 			}
-			
+
 		}
-		
+
 		return false;
-		
+
 	}
 
 	private int paintSimpleGraph(Graph graph) throws GraphColoringNotFoundException {
 
 		List<Edge> edges = new ArrayList<Edge>(graph.edgeSet());
-		int maxVertexDegree = graph.degreeOf( getMaxDegreeVertex(graph) );
+		int maxVertexDegree = graph.degreeOf(getMaxDegreeVertex(graph));
 		int initialIndex = 0;
-		
+
 		if (paintSimpleGraph(graph, edges, maxVertexDegree, initialIndex)) {
 			return maxVertexDegree;
 		}
@@ -85,8 +85,8 @@ public class GraphEdgePainter {
 		return 0;
 	}
 
-	private void paintTree(Graph graph, Integer vertex,
-			VertexStateMark[] vertexState, int parentEdgeColor) {
+	private void paintTree(Graph graph, Integer vertex, VertexStateMark[] vertexState,
+			int parentEdgeColor) {
 
 		vertexState[vertex.intValue() - 1] = VertexStateMark.GREY;
 
@@ -158,8 +158,7 @@ public class GraphEdgePainter {
 
 	public boolean checkColoring(Graph graph) {
 
-		boolean[] isColorUsed = new boolean[graph
-				.degreeOf(getMaxDegreeVertex(graph)) + 1];
+		boolean[] isColorUsed = new boolean[graph.degreeOf(getMaxDegreeVertex(graph)) + 1];
 
 		for (Integer v : graph.vertexSet()) {
 
