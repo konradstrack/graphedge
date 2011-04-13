@@ -1,11 +1,9 @@
 package pl.strack.graphedge.app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +22,6 @@ public class GraphEdgeRunner {
 
 	private static Logger log = LoggerFactory.getLogger(GraphEdgeRunner.class);
 
-	private Dimension screenSize;
 	private JFrame frame;
 	private JPanel graphPanel;
 
@@ -33,19 +30,14 @@ public class GraphEdgeRunner {
 	}
 
 	private void display() {
-		JFrame.setDefaultLookAndFeelDecorated(true);
 		frame = new JFrame("GraphEdge");
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setPreferredSize(screenSize);
-		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-
+		
 		Container contentPane = frame.getContentPane();
-
 		contentPane.setLayout(new BorderLayout());
 
 		graphPanel = new JPanel();
+		graphPanel.setBackground(Color.white);
 		contentPane.add(graphPanel, BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
@@ -61,6 +53,7 @@ public class GraphEdgeRunner {
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 
 		frame.pack();
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 
 	}

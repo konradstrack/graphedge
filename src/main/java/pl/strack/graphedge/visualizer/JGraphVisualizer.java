@@ -50,22 +50,23 @@ public class JGraphVisualizer {
 		GraphLayoutCache cache = jgraph.getGraphLayoutCache();
 		CellView[] cells = cache.getAllViews();
 
+		final int square = 20;
 		final int x = size.width / 2;
-		final int y = 80;
-		final int r = (size.height - 200) / 2;
+		final int y = (int) (0.04 * size.height);
+		final int r = (size.height - 2 * y - square) / 2;
 		int i = 0;
-		
+
 		int vertices = graph.vertexSet().size();
 
 		for (CellView cell : cells) {
 			if (cell instanceof VertexView) {
 				Rectangle2D rectangle = cell.getBounds();
-				double angle = 2 * i * Math.PI / vertices; 
+				double angle = 2 * i * Math.PI / vertices;
 				int xi = (int) (x + r * Math.sin(angle));
 				int yi = (int) (y + r * (1 - Math.cos(angle)));
 
 				log.debug("Vertex position: {}, {}", xi, yi);
-				rectangle.setRect(xi, yi, 20, 20);
+				rectangle.setRect(xi, yi, square, square);
 
 				++i;
 			}
