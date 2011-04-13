@@ -1,8 +1,10 @@
 package pl.strack.graphedge.app;
 
 import java.awt.Container;
+import java.text.MessageFormat;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import org.jgraph.JGraph;
@@ -10,10 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pl.strack.graphedge.builder.GraphBuilder;
+import pl.strack.graphedge.classifier.GraphClassifier;
 import pl.strack.graphedge.core.Graph;
+import pl.strack.graphedge.painter.ColoredGraphData;
+import pl.strack.graphedge.painter.GraphEdgePainter;
 import pl.strack.graphedge.visualizer.JGraphVisualizer;
 
-public class GraphEvaluator extends SwingWorker<JGraph, Object> {
+public class GraphEvaluator extends SwingWorker<ColoredGraphData, Object> {
 
 	private static Logger log = LoggerFactory.getLogger(GraphEvaluator.class);
 
@@ -26,32 +31,45 @@ public class GraphEvaluator extends SwingWorker<JGraph, Object> {
 	}
 
 	@Override
-	protected JGraph doInBackground() throws Exception {
+	protected ColoredGraphData doInBackground() throws Exception {
 		Graph graph = builder.build();
 
-		JGraphVisualizer visualizer = new JGraphVisualizer(graph, container.getSize());
-		log.debug("Container size: {}, {}", container.getSize().height, container.getSize().width);
+		GraphEdgePainter painter = new GraphEdgePainter(new GraphClassifier());
+		int colors = painter.paintGraph(graph);
 
+		log.info("Creating visualization.");
+		JGraphVisualizer visualizer = new JGraphVisualizer(graph, container.getSize());
 		JGraph jgraph = (JGraph) visualizer.createVisualization();
-		return jgraph;
+
+		ColoredGraphData data = new ColoredGraphData(jgraph, colors, graph.vertexSet().size(),
+				graph.edgeSet().size());
+		return data;
 	}
 
 	@Override
 	protected void done() {
 		super.done();
 		try {
-			JGraph jgraph = get();
+			ColoredGraphData data = get();
+			JGraph jgraph = data.getJgraph();
 			jgraph.setPreferredSize(container.getSize());
+
 			container.removeAll();
 			container.add(jgraph);
+
+			container.repaint();
+			container.validate();
+
+			JOptionPane.showMessageDialog(container, MessageFormat.format(
+					"Number of colors: {0}\nNumber of vertices: {1}\nNumber of edges: {2}",
+					data.getNumberOfColors(), data.getNumberOfVertices(), data.getNumberOfEdges()));
 		} catch (InterruptedException e) {
 			log.error("Graph evaluation interrupted.");
 		} catch (ExecutionException e) {
 			log.error("Error evaluating graph.");
+			e.printStackTrace();
 		}
 
-		container.repaint();
-		container.validate();
 	}
 
 }

@@ -5,10 +5,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
 public class GraphClassifier {
+	
+	private static Logger log = LoggerFactory.getLogger(GraphClassifier.class);
 
 	private enum VertexStateMark {
 		WHITE, GREY, BLACK
@@ -151,10 +156,13 @@ public class GraphClassifier {
 	public GraphType determineGraphType(Graph graph) {
 
 		if (isTree(graph)) {
+			log.info("Graph classified as a tree.");
 			return GraphType.TREE;
 		} else if (isBipartite(graph)) {
+			log.info("Graph classified as a bipartite graph.");
 			return GraphType.BIPARTITE;
 		} else {
+			log.info("Graph classified as a simple graph.");
 			return GraphType.SIMPLE;
 		}
 

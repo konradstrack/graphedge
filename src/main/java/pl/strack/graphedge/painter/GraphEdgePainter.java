@@ -145,7 +145,7 @@ public class GraphEdgePainter {
 			colors = paintTree(graph);
 			break;
 		case BIPARTITE:
-			colors = paintBipartiteGraph(graph);
+			colors = paintSimpleGraph(graph);
 			break;
 		case SIMPLE:
 		default:

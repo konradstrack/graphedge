@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class GraphEdgeRunner {
 	private void display() {
 		frame = new JFrame("GraphEdge");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 
@@ -40,10 +41,15 @@ public class GraphEdgeRunner {
 		graphPanel.setBackground(Color.white);
 		contentPane.add(graphPanel, BorderLayout.CENTER);
 
-		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 4));
+
+		JSpinner vertexSpinner = new JSpinner();
+		buttonPanel.add(vertexSpinner);
+		JSpinner edgeSpinner = new JSpinner();
+		buttonPanel.add(edgeSpinner);
 
 		JButton randomButton = new JButton("Random graph");
-		randomButton.addActionListener(new RandomButtonListener());
+		randomButton.addActionListener(new RandomButtonListener(vertexSpinner, edgeSpinner));
 		buttonPanel.add(randomButton);
 
 		JButton openFileButton = new JButton("Open file");
@@ -60,12 +66,22 @@ public class GraphEdgeRunner {
 
 	private class RandomButtonListener implements ActionListener {
 
+		private JSpinner vertexSpinner;
+		private JSpinner edgeSpinner;
+
+		public RandomButtonListener(JSpinner vertexSpinner, JSpinner edgeSpinner) {
+			this.vertexSpinner = vertexSpinner;
+			this.edgeSpinner = edgeSpinner;
+		}
+
 		public void actionPerformed(ActionEvent e) {
-			GraphEvaluator evaluator = new GraphEvaluator(new RandomGraphBuilder(20, 80),
+			log.info("Selected random graph with {} vertices and {} edges.",
+					vertexSpinner.getValue(), edgeSpinner.getValue());
+			GraphEvaluator evaluator = new GraphEvaluator(new RandomGraphBuilder(
+					(Integer) vertexSpinner.getValue(), (Integer) edgeSpinner.getValue()),
 					graphPanel);
 			evaluator.execute();
 		}
-
 	}
 
 	private class OpenFileButtonListener implements ActionListener {

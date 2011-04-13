@@ -65,7 +65,6 @@ public class JGraphVisualizer {
 				int xi = (int) (x + r * Math.sin(angle));
 				int yi = (int) (y + r * (1 - Math.cos(angle)));
 
-				log.debug("Vertex position: {}, {}", xi, yi);
 				rectangle.setRect(xi, yi, square, square);
 
 				++i;
@@ -83,7 +82,15 @@ public class JGraphVisualizer {
 			if (cell instanceof EdgeView) {
 				EdgeView edgeView = (EdgeView) cell;
 				DefaultEdge defaultEdge = (DefaultEdge) edgeView.getCell();
+				
 				defaultEdge.setUserObject("");
+				
+				for (Edge edge : graph.edgeSet()) {
+					if (defaultEdge == modelAdapter.getEdgeCell(edge)) {
+						defaultEdge.setUserObject(edge.getColor());
+						break;
+					}
+				}
 			}
 		}
 	}
