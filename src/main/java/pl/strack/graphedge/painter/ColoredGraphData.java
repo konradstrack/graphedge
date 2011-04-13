@@ -5,16 +5,18 @@ import org.jgraph.JGraph;
 public class ColoredGraphData {
 
 	private JGraph jgraph;
-	private int numberOfColors;
-	private int numberOfVertices;
-	private int numberOfEdges;
+	private final int numberOfColors;
+	private final int numberOfVertices;
+	private final int numberOfEdges;
+	private final long coloringTime;
 
 	public ColoredGraphData(JGraph jgraph, int numberOfColors, int numberOfVertices,
-			int numberOfEdges) {
+			int numberOfEdges, long coloringTime) {
 		this.jgraph = jgraph;
 		this.numberOfColors = numberOfColors;
 		this.numberOfVertices = numberOfVertices;
 		this.numberOfEdges = numberOfEdges;
+		this.coloringTime = coloringTime;
 	}
 
 	public JGraph getJgraph() {
@@ -31,6 +33,10 @@ public class ColoredGraphData {
 
 	public int getNumberOfEdges() {
 		return numberOfEdges;
+	}
+	
+	public long getColoringTime() {
+		return coloringTime;
 	}
 
 }

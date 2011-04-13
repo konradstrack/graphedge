@@ -41,13 +41,7 @@ public class GraphEdgePainter {
 	private boolean paintSimpleGraph(Graph graph, List<Edge> edges, int maxVertexDegree, int index) {
 
 		if (edges.size() == index) {
-
-			if (checkColoring(graph)) {
-				return true;
-			} else {
-				return false;
-			}
-
+			return checkColoring(graph);
 		}
 
 		Edge edge = edges.get(index);

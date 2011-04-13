@@ -22,7 +22,7 @@ public class RandomGraphBuilder implements GraphBuilder {
 
 		Graph graph = new Graph(Edge.class);
 		generator.generateGraph(graph, new VertexFactory<Integer>() {
-			int i = 0;
+			private int i = 0;
 
 			public Integer createVertex() {
 				return ++i;

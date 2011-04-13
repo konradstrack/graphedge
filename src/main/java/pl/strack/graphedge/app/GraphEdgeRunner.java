@@ -66,8 +66,8 @@ public class GraphEdgeRunner {
 
 	private class RandomButtonListener implements ActionListener {
 
-		private JSpinner vertexSpinner;
-		private JSpinner edgeSpinner;
+		private final JSpinner vertexSpinner;
+		private final JSpinner edgeSpinner;
 
 		public RandomButtonListener(JSpinner vertexSpinner, JSpinner edgeSpinner) {
 			this.vertexSpinner = vertexSpinner;

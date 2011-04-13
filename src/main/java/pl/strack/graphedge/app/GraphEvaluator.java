@@ -35,14 +35,17 @@ public class GraphEvaluator extends SwingWorker<ColoredGraphData, Object> {
 		Graph graph = builder.build();
 
 		GraphEdgePainter painter = new GraphEdgePainter(new GraphClassifier());
+
+		long startTime = System.nanoTime();
 		int colors = painter.paintGraph(graph);
+		long endTime = System.nanoTime();
 
 		log.info("Creating visualization.");
 		JGraphVisualizer visualizer = new JGraphVisualizer(graph, container.getSize());
 		JGraph jgraph = (JGraph) visualizer.createVisualization();
 
 		ColoredGraphData data = new ColoredGraphData(jgraph, colors, graph.vertexSet().size(),
-				graph.edgeSet().size());
+				graph.edgeSet().size(), endTime - startTime);
 		return data;
 	}
 
@@ -60,9 +63,14 @@ public class GraphEvaluator extends SwingWorker<ColoredGraphData, Object> {
 			container.repaint();
 			container.validate();
 
-			JOptionPane.showMessageDialog(container, MessageFormat.format(
-					"Number of colors: {0}\nNumber of vertices: {1}\nNumber of edges: {2}",
-					data.getNumberOfColors(), data.getNumberOfVertices(), data.getNumberOfEdges()));
+			JOptionPane
+					.showMessageDialog(
+							container,
+							MessageFormat
+									.format("Number of colors: {0}\nNumber of vertices: {1}\nNumber of edges: {2}\nColoring time: {3} ms",
+											data.getNumberOfColors(), data.getNumberOfVertices(),
+											data.getNumberOfEdges(),
+											data.getColoringTime() / 1000000));
 		} catch (InterruptedException e) {
 			log.error("Graph evaluation interrupted.");
 		} catch (ExecutionException e) {
