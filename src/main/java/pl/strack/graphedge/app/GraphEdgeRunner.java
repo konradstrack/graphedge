@@ -5,32 +5,28 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.strack.graphedge.builder.FileGraphBuilder;
 import pl.strack.graphedge.builder.RandomGraphBuilder;
 import pl.strack.graphedge.core.Graph;
-import pl.strack.graphedge.visualizer.JGraphVisualizer;
-
-import com.google.inject.Inject;
 
 public class GraphEdgeRunner {
 
 	private static Logger log = LoggerFactory.getLogger(GraphEdgeRunner.class);
 
-	private final FileGraphBuilder fileBuilder;
-	private final RandomGraphBuilder randomBuilder;
-
-	@Inject
-	public GraphEdgeRunner(FileGraphBuilder fileBuilder, RandomGraphBuilder randomBuilder) {
-		this.fileBuilder = fileBuilder;
-		this.randomBuilder = randomBuilder;
-	}
+	private JComponent jgraph;
+	private Dimension screenSize;
+	private JFrame frame;
+	private JPanel graphPanel;
 
 	public void run() {
 
@@ -42,17 +38,15 @@ public class GraphEdgeRunner {
 		// log.error(e.getMessage());
 		// }
 
-		graph = randomBuilder.build(10, 40);
-
-		display(graph);
+		display();
 	}
 
-	private void display(Graph graph) {
+	private void display() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		JFrame frame = new JFrame("GraphEdge");
+		frame = new JFrame("GraphEdge");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setPreferredSize(screenSize);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
@@ -60,12 +54,25 @@ public class GraphEdgeRunner {
 
 		contentPane.setLayout(new BorderLayout());
 
-		JGraphVisualizer visualizer = new JGraphVisualizer(graph, screenSize);
-		JComponent jgraph = visualizer.createVisualization();
-		contentPane.add(jgraph, BorderLayout.CENTER);
+		JButton randomButton = new JButton("Random graph");
+		randomButton.addActionListener(new RandomButtonListener());
+
+		graphPanel = new JPanel();
+		contentPane.add(graphPanel, BorderLayout.CENTER);
+		contentPane.add(randomButton, BorderLayout.SOUTH);
 
 		frame.pack();
 		frame.setVisible(true);
 
 	}
+
+	private class RandomButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			GraphEvaluator evaluator = new GraphEvaluator(new RandomGraphBuilder(20, 80), screenSize, graphPanel);
+			evaluator.execute();
+		}
+
+	}
+
 }

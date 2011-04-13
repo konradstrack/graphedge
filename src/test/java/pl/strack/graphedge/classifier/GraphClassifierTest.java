@@ -12,46 +12,49 @@ import pl.strack.graphedge.core.Graph;
 
 public class GraphClassifierTest {
 	
-	private FileGraphBuilder builder;
 	private GraphClassifier classifier;
 	
 	@Before
 	public void setup() {
-		builder = new FileGraphBuilder();
 		classifier = new GraphClassifier();
 	}
 	
 	@Test
 	public void testSimple() throws FileNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/simple2.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/simple2.g");
+		Graph graph = builder.build();
 		
 		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
 	}
 	
 	@Test
 	public void testBipartite() throws FileNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/bipartite1.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/bipartite1.g");
+		Graph graph = builder.build();
 		
 		assertEquals(GraphType.BIPARTITE, classifier.determineGraphType(graph));
 	}
 	
 	@Test
 	public void testTree1() throws FileNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/tree1.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/tree1.g");
+		Graph graph = builder.build();
 		
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
 	}
 	
 	@Test
 	public void testTree2() throws FileNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/tree2.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/tree2.g");
+		Graph graph = builder.build();
 		
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
 	}
 	
 	@Test
 	public void testDisconnectedTree() throws FileNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/disconnected_tree.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/disconnected_tree.g");
+		Graph graph = builder.build();
 		
 		assertEquals(GraphType.BIPARTITE, classifier.determineGraphType(graph));
 	}

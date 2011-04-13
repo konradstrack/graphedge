@@ -16,13 +16,11 @@ import pl.strack.graphedge.painter.exceptions.GraphColoringNotFoundException;
 
 public class GraphEdgePainterTest {
 
-	private FileGraphBuilder builder;
 	private GraphClassifier classifier;
 	private GraphEdgePainter painter;
 
 	@Before
 	public void setup() {
-		builder = new FileGraphBuilder();
 		classifier = new GraphClassifier();
 		painter = new GraphEdgePainter(classifier);
 	}
@@ -30,8 +28,10 @@ public class GraphEdgePainterTest {
 	@Test
 	public void paintTreeTest() throws FileNotFoundException,
 			GraphColoringNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/tree3.g");
 
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/tree3.g");
+		Graph graph = builder.build();
+		
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
 		assertEquals(3, painter.paintGraph(graph));
 		assertTrue(painter.checkColoring(graph));
@@ -41,7 +41,8 @@ public class GraphEdgePainterTest {
 	@Test
 	public void paintSimpleTest1() throws FileNotFoundException,
 			GraphColoringNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/simple3.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/simple3.g");
+		Graph graph = builder.build();
 
 		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
 		assertEquals(3, painter.paintGraph(graph));
@@ -50,7 +51,8 @@ public class GraphEdgePainterTest {
 
 	@Test
 	public void paintSimpleTest2() throws FileNotFoundException, GraphColoringNotFoundException {
-		Graph graph = builder.build("src/test/resources/graphs/simple4.g");
+		FileGraphBuilder builder = new FileGraphBuilder("src/test/resources/graphs/simple4.g");
+		Graph graph = builder.build();
 
 		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
 		assertEquals(5, painter.paintGraph(graph));

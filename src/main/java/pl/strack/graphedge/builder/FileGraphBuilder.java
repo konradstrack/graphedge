@@ -8,9 +8,15 @@ import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
 
-public class FileGraphBuilder {
+public class FileGraphBuilder implements GraphBuilder {
 	
-	public Graph build(String filename) throws FileNotFoundException {
+	private final String filename;
+	
+	public FileGraphBuilder(String filename) {
+		this.filename = filename;
+	}
+	
+	public Graph build() throws FileNotFoundException {
 		Graph graph = new Graph(Edge.class);
 
 		Scanner scanner = new Scanner(new File(filename));

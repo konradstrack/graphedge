@@ -6,9 +6,17 @@ import org.jgrapht.generate.RandomGraphGenerator;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
-public class RandomGraphBuilder {
+public class RandomGraphBuilder implements GraphBuilder {
 
-	public Graph build(int vertexes, int edges) {
+	private final int vertexes;
+	private final int edges;
+
+	public RandomGraphBuilder(int vertexes, int edges) {
+		this.vertexes = vertexes;
+		this.edges = edges;
+	}
+
+	public Graph build() {
 		RandomGraphGenerator<Integer, Edge> generator = new RandomGraphGenerator<Integer, Edge>(
 				vertexes, edges);
 
@@ -22,5 +30,5 @@ public class RandomGraphBuilder {
 		}, null);
 		return graph;
 	}
-	
+
 }
