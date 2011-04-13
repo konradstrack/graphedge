@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import pl.strack.graphedge.builder.FileGraphBuilder;
 import pl.strack.graphedge.builder.RandomGraphBuilder;
-import pl.strack.graphedge.core.Graph;
 
 public class GraphEdgeRunner {
 
@@ -32,15 +31,6 @@ public class GraphEdgeRunner {
 	private JPanel graphPanel;
 
 	public void run() {
-
-		Graph graph = null;
-		// try {
-		// graph = builder.build("src/main/resources/graphs/simple2.g");
-		// log.debug("Opening graph file.");
-		// } catch (FileNotFoundException e) {
-		// log.error(e.getMessage());
-		// }
-
 		display();
 	}
 
