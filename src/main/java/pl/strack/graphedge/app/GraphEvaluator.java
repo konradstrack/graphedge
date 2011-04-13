@@ -45,11 +45,9 @@ public class GraphEvaluator extends SwingWorker<JGraph, Object> {
 			container.removeAll();
 			container.add(jgraph);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Graph evaluation interrupted.");
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error evaluating graph.");
 		}
 
 		container.repaint();
