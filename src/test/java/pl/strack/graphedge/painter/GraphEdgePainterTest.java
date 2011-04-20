@@ -34,7 +34,7 @@ public class GraphEdgePainterTest {
 		
 		assertEquals(GraphType.TREE, classifier.determineGraphType(graph));
 		assertEquals(3, painter.paintGraph(graph));
-		assertTrue(painter.checkColoring(graph));
+		assertTrue(graph.checkEdgeColoring());
 
 	}
 
@@ -46,7 +46,7 @@ public class GraphEdgePainterTest {
 
 		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
 		assertEquals(3, painter.paintGraph(graph));
-		assertTrue(painter.checkColoring(graph));
+		assertTrue(graph.checkEdgeColoring());
 	}
 
 	@Test
@@ -56,6 +56,6 @@ public class GraphEdgePainterTest {
 
 		assertEquals(GraphType.SIMPLE, classifier.determineGraphType(graph));
 		assertEquals(5, painter.paintGraph(graph));
-		assertTrue(painter.checkColoring(graph));
+		assertTrue(graph.checkEdgeColoring());
 	}
 }
