@@ -5,6 +5,9 @@ import java.util.Set;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
+/**
+ * Implementation of <code>Painter</code> interface, responsible for coloring edges of a tree.
+ */
 public class TreePainter implements Painter {
 
 	private enum VertexStateMark {
@@ -27,6 +30,18 @@ public class TreePainter implements Painter {
 
 	}
 
+	/**
+	 * Recursive function for coloring trees.
+	 * 
+	 * @param graph
+	 *            a graph to be colored
+	 * @param vertex
+	 *            current vertex
+	 * @param vertexState
+	 *            vertex traversing state
+	 * @param parentEdgeColor
+	 *            color of the previous edge
+	 */
 	private void paintTree(Graph graph, Integer vertex, VertexStateMark[] vertexState,
 			int parentEdgeColor) {
 

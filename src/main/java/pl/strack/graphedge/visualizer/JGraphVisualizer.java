@@ -18,6 +18,9 @@ import org.slf4j.LoggerFactory;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
+/**
+ * Class responsible for visualization of the graph.
+ */
 public class JGraphVisualizer {
 
 	private static Logger log = LoggerFactory.getLogger(JGraphVisualizer.class);
@@ -32,6 +35,11 @@ public class JGraphVisualizer {
 		this.size = size;
 	}
 
+	/**
+	 * Creates a visualization.
+	 * 
+	 * @return component containing visualization that should be displayed
+	 */
 	public JComponent createVisualization() {
 
 		log.debug("Creating JGraph visualization");
@@ -45,6 +53,12 @@ public class JGraphVisualizer {
 		return jgraph;
 	}
 
+	/**
+	 * Sets the coordinates of vertices so that they lay on a circle.
+	 * 
+	 * @param jgraph
+	 *            a graph to be displayed
+	 */
 	private void setVertexPositions(JGraph jgraph) {
 
 		GraphLayoutCache cache = jgraph.getGraphLayoutCache();
@@ -72,6 +86,12 @@ public class JGraphVisualizer {
 		}
 	}
 
+	/**
+	 * Sets color numbers as edge labels.
+	 * 
+	 * @param jgraph
+	 *            a graph to be displayed
+	 */
 	private void setEdgeLabels(JGraph jgraph) {
 		log.debug("Setting edge labels");
 
@@ -82,9 +102,9 @@ public class JGraphVisualizer {
 			if (cell instanceof EdgeView) {
 				EdgeView edgeView = (EdgeView) cell;
 				DefaultEdge defaultEdge = (DefaultEdge) edgeView.getCell();
-				
+
 				defaultEdge.setUserObject("");
-				
+
 				for (Edge edge : graph.edgeSet()) {
 					if (defaultEdge == modelAdapter.getEdgeCell(edge)) {
 						defaultEdge.setUserObject(edge.getColor());

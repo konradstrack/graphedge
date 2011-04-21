@@ -11,8 +11,11 @@ import org.slf4j.LoggerFactory;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
+/**
+ * Determining graph type.
+ */
 public class GraphClassifier {
-	
+
 	private static Logger log = LoggerFactory.getLogger(GraphClassifier.class);
 
 	private enum VertexStateMark {
@@ -20,7 +23,7 @@ public class GraphClassifier {
 	}
 
 	private enum VertexDistanceMark {
-		EVEN/* parzysty */, ODD/* nieparzysty */, NONE
+		EVEN, ODD, NONE
 	}
 
 	private boolean isBipartite(Graph graph) {
@@ -153,6 +156,11 @@ public class GraphClassifier {
 		}
 	}
 
+	/**
+	 * @param graph
+	 *            a graph which type should be checked
+	 * @return graph type as a <code>GraphType</code> enum value
+	 */
 	public GraphType determineGraphType(Graph graph) {
 
 		if (isTree(graph)) {

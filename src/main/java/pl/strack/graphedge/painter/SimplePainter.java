@@ -7,6 +7,10 @@ import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 import pl.strack.graphedge.painter.exceptions.GraphColoringNotFoundException;
 
+/**
+ * Implementation of <code>Painter</code> interface, responsible for brute force coloring any simple
+ * graph.
+ */
 public class SimplePainter implements Painter {
 
 	public int paint(Graph graph) throws GraphColoringNotFoundException {
@@ -25,6 +29,19 @@ public class SimplePainter implements Painter {
 
 	}
 
+	/**
+	 * Recursive function for brute force coloring of the graph.
+	 * 
+	 * @param graph
+	 *            a graph to be painted
+	 * @param edges
+	 *            list of graph's edges
+	 * @param maxVertexDegree
+	 *            maximum degree of a vertex in graph
+	 * @param index
+	 *            current edge number
+	 * @return true if coloring was successful, false otherwise
+	 */
 	private boolean paintSimpleGraph(Graph graph, List<Edge> edges, int maxVertexDegree, int index) {
 
 		if (edges.size() == index) {
