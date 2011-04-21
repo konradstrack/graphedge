@@ -4,6 +4,9 @@ import java.util.Set;
 
 import org.jgrapht.graph.SimpleGraph;
 
+/**
+ * Graph representation based on SimpleGraph.
+ */
 public class Graph extends SimpleGraph<Integer, Edge> {
 
 	private static final long serialVersionUID = 5760792906022005614L;
@@ -12,6 +15,11 @@ public class Graph extends SimpleGraph<Integer, Edge> {
 		super(edgeClass);
 	}
 
+	/**
+	 * Calculates the maximum degree vertex.
+	 * 
+	 * @return number of vertex with maximum degree
+	 */
 	public Integer getMaxDegreeVertex() {
 
 		Set<Integer> vertices = vertexSet();
@@ -25,6 +33,11 @@ public class Graph extends SimpleGraph<Integer, Edge> {
 		return vertex;
 	}
 
+	/**
+	 * Checks coloring of the graph's edges.
+	 * 
+	 * @return true if is properly colored, false otherwise
+	 */
 	public boolean checkEdgeColoring() {
 
 		boolean[] isColorUsed = new boolean[degreeOf(getMaxDegreeVertex()) + 1];

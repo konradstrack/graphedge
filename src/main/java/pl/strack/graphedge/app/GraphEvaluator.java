@@ -21,6 +21,9 @@ import pl.strack.graphedge.painter.SimplePainter;
 import pl.strack.graphedge.painter.TreePainter;
 import pl.strack.graphedge.visualizer.JGraphVisualizer;
 
+/**
+ * A class for operations on graphs in SwingWorker thread.
+ */
 public class GraphEvaluator extends SwingWorker<ColoredGraphData, Object> {
 
 	private static Logger log = LoggerFactory.getLogger(GraphEvaluator.class);

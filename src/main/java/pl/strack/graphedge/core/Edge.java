@@ -1,5 +1,8 @@
 package pl.strack.graphedge.core;
 
+/**
+ * Custom edge implementation.
+ */
 public class Edge {
 
 	private int color;
@@ -11,5 +14,5 @@ public class Edge {
 	public int getColor() {
 		return color;
 	}
-	
+
 }

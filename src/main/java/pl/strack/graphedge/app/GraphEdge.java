@@ -3,6 +3,9 @@ package pl.strack.graphedge.app;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+/**
+ *	Main class. Starts the application.
+ */
 public final class GraphEdge {
 
 	private GraphEdge() {

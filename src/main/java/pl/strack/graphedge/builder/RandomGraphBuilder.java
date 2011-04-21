@@ -6,6 +6,9 @@ import org.jgrapht.generate.RandomGraphGenerator;
 import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
+/**
+ *	Class for creating random graphs.
+ */
 public class RandomGraphBuilder implements GraphBuilder {
 
 	private final int vertexes;

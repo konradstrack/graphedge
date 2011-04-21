@@ -8,6 +8,9 @@ import pl.strack.graphedge.core.Edge;
 import pl.strack.graphedge.core.Graph;
 
 
+/**
+ * Class for reading graphs from file.
+ */
 public class FileGraphBuilder implements GraphBuilder {
 	
 	private final String filename;

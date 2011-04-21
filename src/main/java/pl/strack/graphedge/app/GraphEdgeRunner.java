@@ -30,6 +30,9 @@ public class GraphEdgeRunner {
 		display();
 	}
 
+	/**
+	 * Creates the Swing environment: frame, buttons, etc.
+	 */
 	private void display() {
 		frame = new JFrame("GraphEdge");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,6 +67,9 @@ public class GraphEdgeRunner {
 
 	}
 
+	/**
+	 * Inner listener class for the "Random graph" button.
+	 */
 	private class RandomButtonListener implements ActionListener {
 
 		private final JSpinner vertexSpinner;
@@ -84,6 +90,9 @@ public class GraphEdgeRunner {
 		}
 	}
 
+	/**
+	 * Inner listener class for the "Open file" button.
+	 */
 	private class OpenFileButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
