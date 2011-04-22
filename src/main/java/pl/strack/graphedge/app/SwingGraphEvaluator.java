@@ -24,14 +24,14 @@ import pl.strack.graphedge.visualizer.JGraphVisualizer;
 /**
  * A class for operations on graphs in SwingWorker thread.
  */
-public class GraphEvaluator extends SwingWorker<ColoredGraphData, Object> {
+public class SwingGraphEvaluator extends SwingWorker<ColoredGraphData, Object> {
 
-	private static Logger log = LoggerFactory.getLogger(GraphEvaluator.class);
+	private static Logger log = LoggerFactory.getLogger(SwingGraphEvaluator.class);
 
 	private final GraphBuilder builder;
 	private final Container container;
 
-	public GraphEvaluator(GraphBuilder builder, Container container) {
+	public SwingGraphEvaluator(GraphBuilder builder, Container container) {
 		this.builder = builder;
 		this.container = container;
 	}

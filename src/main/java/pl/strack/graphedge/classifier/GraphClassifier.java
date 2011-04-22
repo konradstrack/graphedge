@@ -164,13 +164,13 @@ public class GraphClassifier {
 	public GraphType determineGraphType(Graph graph) {
 
 		if (isTree(graph)) {
-			log.info("Graph classified as a tree.");
+			log.debug("Graph classified as a tree.");
 			return GraphType.TREE;
 		} else if (isBipartite(graph)) {
-			log.info("Graph classified as a bipartite graph.");
+			log.debug("Graph classified as a bipartite graph.");
 			return GraphType.BIPARTITE;
 		} else {
-			log.info("Graph classified as a simple graph.");
+			log.debug("Graph classified as a simple graph.");
 			return GraphType.SIMPLE;
 		}
 

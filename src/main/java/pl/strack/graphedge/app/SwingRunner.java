@@ -83,7 +83,7 @@ public class SwingRunner implements GraphEdgeRunner {
 		public void actionPerformed(ActionEvent e) {
 			log.info("Selected random graph with {} vertices and {} edges.",
 					vertexSpinner.getValue(), edgeSpinner.getValue());
-			GraphEvaluator evaluator = new GraphEvaluator(new RandomGraphBuilder(
+			SwingGraphEvaluator evaluator = new SwingGraphEvaluator(new RandomGraphBuilder(
 					(Integer) vertexSpinner.getValue(), (Integer) edgeSpinner.getValue()),
 					graphPanel);
 			evaluator.execute();
@@ -101,7 +101,7 @@ public class SwingRunner implements GraphEdgeRunner {
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				log.debug("Selected file: {}", fileChooser.getSelectedFile().getPath());
-				GraphEvaluator evaluator = new GraphEvaluator(new FileGraphBuilder(fileChooser
+				SwingGraphEvaluator evaluator = new SwingGraphEvaluator(new FileGraphBuilder(fileChooser
 						.getSelectedFile().getPath()), graphPanel);
 				evaluator.execute();
 			}
