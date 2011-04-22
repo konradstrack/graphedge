@@ -3,10 +3,8 @@ package pl.strack.graphedge.app;
 import com.google.inject.AbstractModule;
 
 /**
- * Configuration for Guice.
+ * Abstract Guice module class.
  */
-public class GraphEdgeModule extends AbstractModule {
-	@Override
-	protected void configure() {
-	}
+public abstract class GraphEdgeModule extends AbstractModule {
+
 }
