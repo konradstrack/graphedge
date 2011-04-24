@@ -5,6 +5,7 @@ A simple application for finding minimal edge coloring of a graph.
 ##License
 
 Copyright (c) 2011 Konrad Strack
+
 Copyright (c) 2011 Szymon Mentel
 
 This program is free software: you can redistribute it and/or modify
